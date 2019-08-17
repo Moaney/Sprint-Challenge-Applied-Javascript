@@ -17,10 +17,11 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+const card = document.querySelector(".cards-container");
 
 axios
     .get("https://lambda-times-backend.herokuapp.com/articles")
-    .then(res => console.log(res.data))
+    .then(res => card.appendChild(articleCreator(res.data)))
     .catch(err => console.log(err));
 
 
@@ -38,4 +39,23 @@ const articleCreator = (article) => {
     divTags[2].classList.add("author");
     divTags[3].classList.add("img-container");
 
+    //text
+    divTags[1].textContent = article.headline;
+
+    //img
+    const a = document.createElement("a");
+    const aURL = article.authorPhoto;
+    a.setAttribute('href', aURL);
+    divTags[3].appendChild(a);
+
+    //span 
+    const span = document.createElement("span");
+    span.textContent = `By: ${article.authorName}`;
+
+    //append elements
+    const elements = [divTags[1], divTags[2], divTags[3], a, span];
+    elements.map(element => divTags[0].append(element));
+
+    return divTags;
 }
+
