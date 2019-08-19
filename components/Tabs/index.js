@@ -13,9 +13,14 @@ axios
     .get("https://lambda-times-backend.herokuapp.com/topics")
     .then((res) => {
         res.data.topics.map((item => {
-            let divTags = document.createElement("div");
-            divTags.classList.add("tab")
-            document.querySelector(".topics").appendChild(divTags);
+            console.log(res.data.topics)
+            // let divTags = document.createElement("div");
+            // divTags.classList.add("tab")
+            // document.querySelector(".topics").appendChild(divTags);
+        }))
+
+        res.data.topics.forEach((topic => {
+            
         }))
     })
     .catch(err => console.log(err));

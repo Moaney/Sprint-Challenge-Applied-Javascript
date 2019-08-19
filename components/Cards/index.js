@@ -18,44 +18,50 @@
 //
 // Create a card for each of the articles and add the card to the DOM.
 const card = document.querySelector(".cards-container");
-
 axios
     .get("https://lambda-times-backend.herokuapp.com/articles")
-    .then(res => card.appendChild(articleCreator(res.data)))
+    .then((res => {
+        console.log(res.data.articles)
+        card.append(articleCreator(res.data.articles))
+    }))
     .catch(err => console.log(err));
 
 
-const articleCreator = (article) => {
+const articleCreator = (data) => {
 
     //create divs
-    const divTags = [];
-    for (let i = 0; i < 4; i++){
-        divTags.push(document.createElement("div"));
-    }
+    const div1 = document.createElement("div")
+    const div2 = document.createElement("div")
+    const div3 = document.createElement("div")
+    const div4 = document.createElement("div")
 
     //classes 
-    divTags[0].classList.add("card");
-    divTags[1].classList.add("headline");
-    divTags[2].classList.add("author");
-    divTags[3].classList.add("img-container");
+    div1.classList.add("card");
+    div2.classList.add("headline");
+    div3.classList.add("author");
+    div4.classList.add("img-container");
 
     //text
-    divTags[1].textContent = article.headline;
+    div1.textContent = data.headline
 
     //img
     const a = document.createElement("a");
-    const aURL = article.authorPhoto;
+    const aURL = data.authorPhoto;
     a.setAttribute('href', aURL);
-    divTags[3].appendChild(a);
+    div4.appendChild(a);
 
     //span 
     const span = document.createElement("span");
-    span.textContent = `By: ${article.authorName}`;
+    span.textContent = `By: ${data.authorName}`;
+    div4.appendChild(span)
 
     //append elements
-    const elements = [divTags[1], divTags[2], divTags[3], a, span];
-    elements.map(element => divTags[0].append(element));
+    div1.appendChild(div2)
+    div2.appendChild(div3)
+    div3.appendChild(div4)
+    
 
-    return divTags;
+    return div1;
 }
 
+const tabs = document.querySelector(".tabs")
