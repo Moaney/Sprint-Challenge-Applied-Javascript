@@ -21,13 +21,54 @@ const card = document.querySelector(".cards-container");
 axios
     .get("https://lambda-times-backend.herokuapp.com/articles")
     .then((res => {
-        console.log(res.data.articles)
-        card.append(articleCreator(res.data.articles))
+
+        // article object 
+        const articles = res.data.articles
+        console.log("artciles", articles)
+
+        //bootstrap
+        const bootstrap = articles.bootstrap
+        console.log("bootstrap", bootstrap)
+        bootstrap.map(article => {
+            card.appendChild(articleCreator(article))
+        })
+    
+        //javascript
+        const javascript = articles.javascript
+        console.log("javascript", javascript)
+        javascript.map(article => {
+            card.appendChild(articleCreator(article))
+        })
+
+        //jquery
+        const jquery = articles.jquery
+        console.log("jquery", jquery)
+        jquery.map(article => {
+            card.appendChild(articleCreator(article))
+        })
+
+        //node
+        const node = articles.node
+        console.log("node", node)
+        node.map(article => {
+            card.appendChild(articleCreator(article))
+        })
+
+        //technology
+        const technology = articles.technology
+        console.log("technology", technology)
+
+        technology.map(article => {
+            card.appendChild(articleCreator(article))
+        })
+
+        card.appendChild(articleCreator(articles))
     }))
+
     .catch(err => console.log(err));
 
 
-const articleCreator = (data) => {
+const articleCreator = (articles) => {
 
     //create divs
     const div1 = document.createElement("div")
@@ -42,26 +83,26 @@ const articleCreator = (data) => {
     div4.classList.add("img-container");
 
     //text
-    div1.textContent = data.headline
+    div2.textContent = articles.headline
+
 
     //img
-    const a = document.createElement("a");
-    const aURL = data.authorPhoto;
-    a.setAttribute('href', aURL);
-    div4.appendChild(a);
+    const img = document.createElement("img");
+    img.src = articles.authorPhoto
+    div4.appendChild(img);
 
     //span 
     const span = document.createElement("span");
-    span.textContent = `By: ${data.authorName}`;
+    span.textContent = articles.authorName;
     div4.appendChild(span)
 
     //append elements
     div1.appendChild(div2)
-    div2.appendChild(div3)
+    div1.appendChild(div3)
     div3.appendChild(div4)
     
 
     return div1;
 }
 
-const tabs = document.querySelector(".tabs")
+// const tabs = document.querySelector(".tabs")

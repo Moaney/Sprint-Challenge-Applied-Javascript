@@ -13,15 +13,17 @@ axios
     .get("https://lambda-times-backend.herokuapp.com/topics")
     .then((res) => {
         res.data.topics.map((item => {
-            console.log(res.data.topics)
-            // let divTags = document.createElement("div");
-            // divTags.classList.add("tab")
-            // document.querySelector(".topics").appendChild(divTags);
-        }))
-
-        res.data.topics.forEach((topic => {
-            
+            console.log("item", item)
+            document.querySelector(".topics").appendChild(tabsCreator(item));
         }))
     })
     .catch(err => console.log(err));
 
+const tabsCreator = (tab) => {
+
+    const div = document.createElement("div")
+    div.classList.add("tab");
+    div.textContent = tab
+
+return div;
+}
